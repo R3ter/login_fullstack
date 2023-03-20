@@ -1,66 +1,44 @@
-<div id="top"></div>
+# Login page for ServiceNow applications and portals
 
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+Custom login page built with React. 
 
-<!-- GETTING STARTED -->
+It provides out-of-the-box ServiceNow login functionality, including `remember me` option.
 
-## Getting Started
+![img](assets/img1.png)
 
-A simple sign in and sign up template built with React and Material UI. With complete input validation using formik and yup, making your life easy.
+Login page implemented as a simple React application and can be used as a gateway for any ServiceNow application and portal.
 
-![Product Preview][product-preview]
+## How to test/run locally
+1. Copy/clone the repo
+2. Install all dependencies by `npm i`
+3. Run the app by `npm start`
 
-- [Demo](https://auth-mui-template.vercel.app/)
+> IMPORTANT: You won't be able to test login process locally, since the app should be run _inside_ of ServiceNow instance. However, you can customize HTML/CSS markup etc. 
 
-### Built With
+## How to deploy to ServiceNow
+1. Build the application by `npm run build`.
+2. Save JS and CSS files from Build/static folder as Style Sheets in ServiceNow.
+3. Upload logo image from Build/static/media folder to ServiceNow: go to System UI/Images and create a new image with a name `static/media/login.633c58d6.png`:
 
-- [React.js](https://reactjs.org/)
-- [Material UI](https://mui.com/)
-- [Formik](https://formik.org/)
-- [Framer Motion](https://framer-motion.com/)
-- [React Router](https://react-router.com/)
+![img](assets/img2.png)
 
-### Prerequisites
+4. Create a _direct_ UI page and copy HTML code from the file 'Build/index.html`. You also need to do the following steps:
+    - update `window.mainAppPage` with the URL where you want to redirect in case of successfull login
+    - update `window.loggedUsername` with this specific code `$[userName]`
+    - update css and js references with the corresponding sys_ids from step #2
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+You UI page should look like this:
 
-### Installation
+![img](assets/img3.png)
 
-_To get started with the project._
+5. Make UI page public:
+    - activate Public Pages module under System Definition menu
+    - create a new record for you UI page
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/eric-ricky/auth-mui-template.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Start the application
-   ```sh
-   npm start
-   ```
+![img](assets/img4.png)
 
-<!-- CONTACT -->
 
-## Contact
+6. You login page should be publicly available by the URL provided on the UI page record.
 
-Eric Ricky - [@ricky_erickk](https://twitter.com/ricky_erickk)
-
-Linked In - [Eric Otieno](linkedin.com/in/rick-otieno-7532b01b9)
-
-Project Link: [https://github.com/eric-ricky/sqaub-landing-page](https://github.com/eric-ricky/auth-mui-template)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: linkedin.com/in/rick-otieno-7532b01b9
-[product-preview]: preview.jpeg
+## Contacts
+Questions, requests for customization or development services - support@dev-labs.io
