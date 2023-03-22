@@ -49,14 +49,6 @@ const LoginForm = ({ setAuth }) => {
       remember: true,
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      console.log("submitting...");
-      setTimeout(() => {
-        console.log("submited!!");
-        setAuth(true);
-        navigate(from, { replace: true });
-      }, 2000);
-    },
   });
 
   const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
@@ -64,7 +56,14 @@ const LoginForm = ({ setAuth }) => {
 
   return (
     <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <Form
+        autoComplete="off"
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log(e.target);
+        }}
+      >
         <Box
           component={motion.div}
           animate={{
