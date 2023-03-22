@@ -10,6 +10,7 @@ const login = ({
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+    credentials: "include",
     method: "POST",
     body: JSON.stringify({ username, password }),
   }).then((res) => res.json());
@@ -28,6 +29,7 @@ const signup = ({
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+    credentials: "include",
     method: "POST",
     body: JSON.stringify({ username, password, name }),
   }).then((res) => res.json());
