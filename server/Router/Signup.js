@@ -15,7 +15,13 @@ const signup = async (req, res) => {
       });
     })
     .catch((error) => {
-      console.log(error);
+      if (error.name == "ValidationError") {
+        return res.json({
+          error: true,
+          msg: "password is too short or email is incorrect!",
+        });
+      }
+
       if (error.name === "MongoServerError" && error.code === 11000) {
         return res.json({
           error: true,

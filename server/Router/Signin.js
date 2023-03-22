@@ -1,6 +1,7 @@
 const { signToken } = require("../auth/Token");
 const users = require("../models/users");
 module.exports = async (req, res) => {
+  console.log(req.body);
   if (!req.body.username || !req.body.password) {
     return res.json({
       error: true,
