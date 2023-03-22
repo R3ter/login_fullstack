@@ -9,8 +9,10 @@ const signup = async (req, res) => {
   })
     .save()
     .then((e) => {
+      const token = signToken({ username: e.email, id: e.id, name: e.name });
+      res.cookie("token", token, { sameSite: "none", secure: true });
       res.json({
-        token: signToken({ id: e._id, username, name }),
+        token: token,
         error: false,
       });
     })

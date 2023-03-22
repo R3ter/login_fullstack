@@ -1,13 +1,16 @@
 import Cookies from "universal-cookie";
 
-const cookies = new Cookies();
+const cookies = new Cookies(document.cookie);
 
 export const getCookie = (name: string) => {
-  console.log(cookies.getAll());
+  return cookies.get(name);
 };
 export const setCookie = (name: string, value: string) => {
-  console.log(value);
-  cookies.set(name, value, { httpOnly: true, });
+  console.log(name);
+  cookies.set(name, value, {
+    httpOnly: true,
+    path: "/",
+  });
 };
 export const removeCookie = (name: string) => {
   cookies.remove(name);

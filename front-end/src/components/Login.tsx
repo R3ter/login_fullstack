@@ -17,7 +17,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { setCookie } from "../data/Cookie";
 
 export default () => {
   const [error, setError] = useState("");
@@ -39,7 +38,6 @@ export default () => {
           if (e.error) {
             setError(e.msg);
           } else {
-            setCookie("token", e.token);
             navigate("/");
           }
         },
