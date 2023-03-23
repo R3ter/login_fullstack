@@ -11,40 +11,39 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useMutation, useQuery } from "react-query";
 import { login } from "../API/Users";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../API/schema";
 
 export default () => {
   const [error, setError] = useState("");
-  const { mutate, isLoading } = useMutation(login);
+  const [mutateFunction, { data, loading }] = useMutation(LOGIN);
   const navigate = useNavigate();
-  const cookies = new Cookies();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    mutate(
-      {
+    mutateFunction({
+      variables: {
         username: data.get("email")?.toString() || "",
         password: data.get("password")?.toString() || "",
       },
-      {
-        onSuccess: (e: any) => {
-          if (e.error) {
-            setError(e.msg);
-          } else {
-            navigate("/");
-          }
-        },
-      }
-    );
+      
+      onCompleted: (e) => {
+        e = e.login;
+        console.log(e);
+        if (e.error) {
+          setError(e.msg);
+        } else {
+          navigate("/");
+        }
+      },
+    });
   };
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -93,9 +92,9 @@ export default () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            disabled={isLoading}
+            disabled={loading}
           >
-            {isLoading && <CircularProgress />} Sign In
+            {loading && <CircularProgress />} Sign In
           </Button>
           <Grid container>
             <Grid item>

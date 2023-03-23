@@ -1,12 +1,20 @@
-import { QueryClient, QueryClientProvider } from "react-query";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
 import "./App.css";
 import Login from "./components/Login";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import SignUp from "./components/SignUp";
-import { Button } from "@mui/material";
 import Main from "./components/Main";
 
-const queryClient = new QueryClient();
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql",
+  cache: new InMemoryCache(),
+  credentials: "include",
+});
 
 const router = createBrowserRouter([
   {
@@ -24,11 +32,11 @@ const router = createBrowserRouter([
 ]);
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ApolloProvider client={client}>
       <div className="App">
         <RouterProvider router={router} />
       </div>
-    </QueryClientProvider>
+    </ApolloProvider>
   );
 }
 
